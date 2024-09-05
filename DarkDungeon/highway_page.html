@@ -1,0 +1,954 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>The Highwayman</title>
+        <link rel="icon" type="image/x-icon" href="Images/Mainpage/torch_browser.png">
+        <meta charset="utf-8">
+        <style>
+
+            @font-face {
+                font-family: Ubuntu;
+                src: url(Fonts/Ubuntu-Regular.woff);
+            }
+
+            @font-face{
+                font-family: Dwarf;
+                src: url(Fonts/DwarvenAxe\ BB\ W00\ Regular.woff);
+            }
+
+            body{
+                background-image: url("Images/Mainpage/dd_background.jpg");
+                background-attachment:fixed;
+                background-size:100% auto; 
+                overflow: scroll;
+                background-repeat: no-repeat;
+                margin: 0;
+                /* need @media for when the screen goes less width than the picture can fill */
+            }
+
+            div{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            h1{
+                font-family: Dwarf;
+                font-size: 80px;
+                color: black;
+                -webkit-text-stroke: .1px orangered;
+                margin-bottom: 0px;
+                margin-top: 0px;
+            }
+
+            li{
+                cursor: pointer;
+            }
+
+            table, th, td{
+                border: 1px solid whitesmoke;
+                border-collapse: collapse;
+            }
+
+            th, td{
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            #ulist{
+                list-style-type: none;
+                display: flex;
+                padding-left: 0px;
+                padding-right: 0px;
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 650px;
+                /* gap: 1em; */
+                
+            }
+
+            .all_contain{
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                margin: auto;
+                width: 100%;
+                height: 100%;
+                padding-top: 40px;
+                /* will probably have to stick with adding an @media to change padding if screen becomes bigger to accomdate screen sizes */
+            }
+
+            .description{
+                background-image: url(Images/Subpages/text_bg.png);
+                background-repeat: no-repeat;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 350px;
+                width: 637px;
+            }
+
+                .description h2{
+                    font-family: Dwarf;
+                    color: goldenrod;
+                    font-size: 50px;
+                    -webkit-text-stroke: .1px black;
+                }
+
+            .item{
+                display: flex;
+                flex-grow: 1;
+                flex-shrink: 1;
+                justify-content: center;
+                transition: transform .2s
+            }
+
+                .item:hover{
+                    transition: scale(1.2);
+                }
+
+
+            .menu{
+                display: flex;
+                align-items: center;
+                background-color: rgb(139, 138, 135, .2);
+                overflow: hidden;
+                padding-left: 50px;
+            }
+
+                .menu a{
+                    font-family: Ubuntu;
+                    color: white;
+                    text-align: center;
+                    font-size: 18px;
+                    padding: 14px 14px;
+                    
+                }
+
+                    .menu a:hover {
+                        background-color: rgb(184, 183, 183, .2);
+                        color: orangered;
+                    }
+
+                    .menu a:active{
+                        background-color: rgba(235, 164, 71, 0.616);
+                        color: white;
+                    }
+
+                .menu img{
+                    float: left;
+                    margin-right: 20px;
+                }
+
+
+            .position_e{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-left: 100px;
+            }
+
+            .position_t{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-right: 100px;
+            }
+
+            .rank{
+                display: flex;
+                flex-direction: row;
+            }
+
+            .skill_contain{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 100%;
+                max-height: 100%;
+                margin-left: 0;
+            }
+
+            #skill_description{
+                display: flex;
+                flex-direction: column;
+                word-wrap: break-word;
+                justify-content: center;
+                align-items: center;
+                height: 200px;
+                max-height: 200px;
+                max-width: 550px;
+                font-family: Ubuntu;
+                color: white;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .skill_other{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+                color: white;
+                font-size: 16px;
+                font-family: Ubuntu;
+            }
+
+            .skill_sprite{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 500px;
+                max-height: 100%;
+                width: 500px;
+                margin-right: 10px;
+                background-image: url("Images/Subpages/sprite_border.png");
+                background-repeat: no-repeat;
+                border-style: solid;
+                border-color: goldenrod;
+                border-radius: 15px;
+                border-width: 2px;
+            }
+
+            #skill_title{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 60px;
+                padding-top: 5px;
+            }
+
+            .skill_zoom{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: transform .2s;
+                /* background-image: url("Images/Subpages/selected_ability.png"); */
+                background-image: url("");
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: aquamarine; */
+                width: 90px;
+                height: 90px;
+            }
+
+                .skill_zoom:hover{
+                    transform: scale(1.1);
+                }
+
+                #skill_zoom_1, #skill_zoom_2, #skill_zoom_3, #skill_zoom_4, #skill_zoom_5, #skill_zoom_6, #skill_zoom_7{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    /* background-image: url("Images/Subpages/selected_ability.png"); */
+                    background-image: url("");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    /* background-color: aquamarine; */
+                    width: 90px;
+                    height: 90px;
+                }
+            
+            #sprite{
+                padding-top: 40px;
+            }
+
+            #quote{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: Ubuntu;
+                color: rgb(158, 6, 6);
+                font-size: 20px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+        </style>
+
+    </head>
+    
+    <body>
+
+        <div class = "menu">
+            
+            <img class="menu_logo" src="Images/darkest-dungeon-menu-logo.png">
+
+            <a class="home" href="Mainpage.html">Home</a>
+            <a class="store" href="https://store.steampowered.com/app/262060/Darkest_Dungeon/" target="_blank">Buy on Steam</a>
+            <a class="about" href="Aboutpage.html">About</a>
+
+        </div>
+
+        <div class="all_contain">
+
+            <div class="skill_sprite">
+                <img id="sprite" src="Images/Subpages/Highway/skill_sprite/highway_combat.png">
+                <div id="quote">
+                    <br>
+                </div>
+            </div>
+
+            <div class="skill_contain">
+                <h1>The Highwayman</h1>
+                <ul id="ulist">
+
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_1">
+                                <img id="skill_1" src="Images/Subpages/Highway/skill_logo/highway_skill_one.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_2">
+                                <img id="skill_2" src="Images/Subpages/Highway/skill_logo/highway_skill_two.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_3">
+                                <img id="skill_3" src="Images/Subpages/Highway/skill_logo/highway_skill_three.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_4">
+                                <img id="skill_4" src="Images/Subpages/Highway/skill_logo/highway_skill_four.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_5">
+                                <img id="skill_5" src="Images/Subpages/Highway/skill_logo/highway_skill_five.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_6">
+                                <img id="skill_6" src="Images/Subpages/Highway/skill_logo/highway_skill_six.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="skill_zoom">
+                            <div id="skill_zoom_7">
+                                <img id="skill_7" src="Images/Subpages/Highway/skill_logo/highway_skill_seven.png">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="description">
+                    <div id="skill_title">
+                        <h2>Description</h2>
+                    </div>
+                    <div id="skill_description">
+                        <em>'Elusive, evasive, persistent - righteous traits for a rogue.'</em>
+                        <br>
+                        The highwayman specializes in damage and damage only; he offers no heals or team buffs. In return, his skills allow him to be comfortable in any position, and can even function in shuffle teams.
+                    </div>
+                    <div class="skill_other">
+                        <div class="position_t">
+                            <strong>Position Required:</strong>
+                            <div class="rank">
+                                <img id="tdot_1" src="Images/Positions/nopos.png">
+                                <img id="tdot_2" src="Images/Positions/nopos.png">
+                                <img id="tdot_3" src="Images/Positions/nopos.png">
+                                <img id="tdot_4" src="Images/Positions/nopos.png">
+                            </div>
+                        </div>
+                        <div class="position_e">
+                            <strong>Target:</strong>
+                            <div class="rank">
+                                <img id="edot_1" src="Images/Positions/nopos.png">
+                                <img id="edot_2" src="Images/Positions/nopos.png">
+                                <img id="edot_3" src="Images/Positions/nopos.png">
+                                <img id="edot_4" src="Images/Positions/nopos.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+    <script>
+
+        //Start Arrays
+
+        const sprite_array = ["Images/Subpages/Highway/skill_sprite/highway_combat.png","Images/Subpages/Highway/skill_sprite/highway_WS.png", "Images/Subpages/Highway/skill_sprite/highway_PS.png", "Images/Subpages/Highway/skill_sprite/highway_PBS.png", "Images/Subpages/Highway/skill_sprite/highway_GB.png", "Images/Subpages/Highway/skill_sprite/highway_TS.png", "Images/Subpages/Highway/skill_sprite/highway_DA.png", "Images/Subpages/Highway/skill_sprite/highway_OV.png"];
+        let spriteIndex = 0;
+
+        const tdot_array = ["Images/Positions/nopos.png","Images/Positions/tpos.png","Images/Positions/mult_tpos1.png","Images/Positions/mult_tpos2.png","Images/Positions/mult_tpos3.png"];
+        let tdotIndex_1 = 0;
+        let tdotIndex_2 = 0;
+        let tdotIndex_3 = 0;
+        let tdotIndex_4 = 0;
+
+
+        const edot_array = ["Images/Positions/nopos.png","Images/Positions/epos.png","Images/Positions/mult_epos1.png","Images/Positions/mult_epos2.png","Images/Positions/mult_epos3.png"];
+        let edotIndex_1 = 0;
+        let edotIndex_2 = 0;
+        let edotIndex_3 = 0;
+        let edotIndex_4 = 0;
+
+        const dot_array_tracker = [0,1,2,3,4,5,6,7];
+        let dat = 0;
+
+        const select_array = ["","Images/Subpages/selected_ability"];
+        let selectIndex_1 = 0;
+        let selectIndex_2 = 0;
+        let selectIndex_3 = 0;
+        let selectIndex_4 = 0;
+        let selectIndex_5 = 0;
+        let selectIndex_6 = 0;
+        let selectIndex_7 = 0;
+
+    
+        // Start EventListeners
+
+        skill_1.addEventListener("click", Image1);
+        skill_1.addEventListener("click", Wicked_Slice);
+        skill_1.addEventListener("click", updateQuote);
+        skill_1.addEventListener("click", SkillPos1);
+        skill_1.addEventListener("click", skillSelect_1);
+
+        skill_2.addEventListener("click", Image2);
+        skill_2.addEventListener("click", Pistol_Shot);
+        skill_2.addEventListener("click", updateQuote);
+        skill_2.addEventListener("click", SkillPos2);
+        skill_2.addEventListener("click", skillSelect_2);
+
+
+        skill_3.addEventListener("click", Image3);
+        skill_3.addEventListener("click", Point_Blank_Shot);
+        skill_3.addEventListener("click", updateQuote);
+        skill_3.addEventListener("click", SkillPos3);
+        skill_3.addEventListener("click", skillSelect_3);
+
+
+        skill_4.addEventListener("click", Image4);
+        skill_4.addEventListener("click", Grapeshot_Blast);
+        skill_4.addEventListener("click", updateQuote);
+        skill_4.addEventListener("click", SkillPos4);
+        skill_4.addEventListener("click", skillSelect_4);
+
+        skill_5.addEventListener("click", Image5);
+        skill_5.addEventListener("click", Tracking_Shot);
+        skill_5.addEventListener("click", updateQuote);
+        skill_5.addEventListener("click", SkillPos5);
+        skill_5.addEventListener("click", skillSelect_5);
+
+        skill_6.addEventListener("click", Image6);
+        skill_6.addEventListener("click", Duelist_Advance);
+        skill_6.addEventListener("click", updateQuote);
+        skill_6.addEventListener("click", SkillPos6);
+        skill_6.addEventListener("click", skillSelect_6);
+
+        skill_7.addEventListener("click", Image7);
+        skill_7.addEventListener("click", Open_Vein);
+        skill_7.addEventListener("click", updateQuote);
+        skill_7.addEventListener("click", SkillPos7);
+        skill_7.addEventListener("click", skillSelect_7);
+
+
+        
+        // Start Image update functions
+
+        function updateImage() {
+            const ss = document.getElementById("sprite");
+            ss.src = sprite_array[spriteIndex];
+        }
+
+        function Image1() {
+            if (spriteIndex !==1){
+                spriteIndex = 1;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+        function Image2() {
+            if (spriteIndex !==2){
+                spriteIndex = 2;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+        function Image3() {
+            if (spriteIndex !==3){
+                spriteIndex = 3;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+        
+        function Image4() {
+            if (spriteIndex !==4){
+                spriteIndex = 4;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+        function Image5() {
+            if (spriteIndex !==5){
+                spriteIndex = 5;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+        function Image6() {
+            if (spriteIndex !==6){
+                spriteIndex = 6;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+        function Image7() {
+            if (spriteIndex !==7){
+                spriteIndex = 7;
+                updateImage(); 
+            }else{
+                spriteIndex = 0;
+                updateImage();
+            }
+        }
+
+
+        // Start description and title change functions
+
+        const sd = document.getElementById("skill_description");
+        const st = document.getElementById("skill_title");
+
+        var initial_d = "<em>'Elusive, evasive, persistent - righteous traits for a rogue.'</em> <br> The highwayman specializes in damage and damage only; he offers no team-wide heals or buffs. In return, his skills allow him to be comfortable in any position, and can even function in shuffle teams.";
+        var initial_t = "<h2>Description<h2>"
+        
+        function Wicked_Slice() {
+            var WS_d = "A decent melee attack that can hit almost any enemy from almost any rank.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Melee</td><td>+15%</td><td>85</td><td>5%</td><td>N/A</td><td>N/A</td></tr></tbody></table>";
+            var WS_t = "<h2>Wicked Slice<h2>";
+
+            if (sd.innerHTML !== WS_d) {
+                sd.innerHTML = WS_d;
+                st.innerHTML = WS_t;
+            } else if (sd.innerHTML == WS_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Pistol_Shot() {
+            var PS_d = "A decent ranged attack that can hit almost any enemy from almost any rank, with an upside against marked enemies.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Ranged</td><td>-15%</td><td>85</td><td>7.5%</td><td>+25% DMG vs Marked</td><td>N/A</td></tr></tbody></table>";
+            var PS_t = "<h2>Pistol Shot<h2>";
+
+            if (sd.innerHTML !== PS_d) {
+                sd.innerHTML = PS_d;
+                st.innerHTML = PS_t;
+            } else if (sd.innerHTML == PS_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Point_Blank_Shot() {
+            var PBS_d = "A massive amount of damage in return for positioning requirements as well as a soft-cooldown if the rest of the team doesn't swap positions.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Ranged</td><td>+50%</td><td>95</td><td>5%</td><td>Knockback 1</td><td>Back 1</td></tr></tbody></table>";
+            var PBS_t = "<h2>Point Blank Shot<h2>";
+
+            if (sd.innerHTML !== PBS_d) {
+                sd.innerHTML = PBS_d;
+                st.innerHTML = PBS_t;
+            } else if (sd.innerHTML == PBS_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Grapeshot_Blast() {
+            var GB_d = "One of the few attacks that hits 3 enemies at once, made up for by it's low accuracy and damage.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Ranged</td><td>-50%</td><td>75</td><td>-9%</td><td>+4% Crits Received</td><td>N/A</td></tr></tbody></table>";
+            var GB_t = "<h2>Grapeshot Blast<h2>";
+
+            if (sd.innerHTML !== GB_d) {
+                sd.innerHTML = GB_d;
+                st.innerHTML = GB_t;
+            } else if (sd.innerHTML == GB_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Tracking_Shot() {
+            var TS_d = "A combined utility tool of self-buff and destealthing that just happens to do a small amount of damage.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Ranged</td><td>-80%</td><td>95</td><td>0%</td><td>Remove Stealth</td><td>+6 ACC<br>+4% Crit<br>+12% DMG</td></tr></tbody></table>";
+            var TS_t = "<h2>Tracking Shot<h2>";
+
+            if (sd.innerHTML !== TS_d) {
+                sd.innerHTML = TS_d;
+                st.innerHTML = TS_t;
+            } else if (sd.innerHTML == TS_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Duelist_Advance() {
+            var DA_d = "A move ability (can set up Point Blank Shot in non-shuffle teams) that also enables the powerful Riposte.<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Melee</td><td>-20%</td><td>90</td><td>5%</td><td>N/A</td><td>Forward 1<br>Activate Riposte</td></tr></tbody></table>";
+            var DA_t = "<h2>Duelist's Advance<h2>";
+
+            if (sd.innerHTML !== DA_d) {
+                sd.innerHTML = DA_d;
+                st.innerHTML = DA_t;
+            } else if (sd.innerHTML == DA_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+        function Open_Vein() {
+            var OV_d = "The main tool against enemies with high protection, as they resist direct damage (every other Highwayman ability).<br><br><table><tbody><tr><th>Type</th><th>Damage</th><th>Accuracy</th><th>Crit Mod</th><th>Effect</th><th>Self</th></tr><tr><td>Melee</td><td>-15%</td><td>95</td><td>0%</td><td>Bleed 2pts<br>-20% Bleed Resist<br>-1 SPD</td><td>N/A</td></tr></tbody></table>";
+            var OV_t = "<h2>Open Vein<h2>";
+
+            if (sd.innerHTML !== OV_d) {
+                sd.innerHTML = OV_d;
+                st.innerHTML = OV_t;
+            } else if (sd.innerHTML == OV_d){
+                sd.innerHTML = initial_d;
+                st.innerHTML = initial_t;
+            }
+        }
+
+
+        //Start quote change function
+
+        const quote_array = ["Didn't see that coming, did you?", "I never miss.", "Right where it hurts!", "You're outmatched.", "Ha haa!", "Damn - I missed your eyes!"]
+
+        function updateQuote() {
+            const sq = document.getElementById("quote");
+
+            if (spriteIndex !== 0){
+                let quoteIndex = Math.floor(Math.random() * quote_array.length);
+                sq.innerHTML = quote_array[quoteIndex];
+            } else{
+                sq.innerHTML = "<br>";
+            }
+        }
+
+        
+        //Start postiion change function
+
+        function updateDot() {
+            const spt_1 = document.getElementById("tdot_1");
+            spt_1.src = tdot_array[tdotIndex_1];
+
+            const spt_2 = document.getElementById("tdot_2");
+            spt_2.src = tdot_array[tdotIndex_2];
+
+            const spt_3 = document.getElementById("tdot_3");
+            spt_3.src = tdot_array[tdotIndex_3];
+
+            const spt_4 = document.getElementById("tdot_4");
+            spt_4.src = tdot_array[tdotIndex_4];
+
+            const spe_1 = document.getElementById("edot_1");
+            spe_1.src = edot_array[edotIndex_1];
+
+            const spe_2 = document.getElementById("edot_2");
+            spe_2.src = edot_array[edotIndex_2];
+
+            const spe_3 = document.getElementById("edot_3");
+            spe_3.src = edot_array[edotIndex_3];
+
+            const spe_4 = document.getElementById("edot_4");
+            spe_4.src = edot_array[edotIndex_4];
+
+        }
+
+        function SkillPos1() {
+            if (dat !==1){
+
+                tdotIndex_1 = 0;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 1;
+
+                edotIndex_1 = 1;
+                edotIndex_2 = 1;
+                edotIndex_3 = 0;
+                edotIndex_4 = 0;
+
+                dat = 1;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos2() {
+            if (dat !==2){
+
+                tdotIndex_1 = 1;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 0;
+
+                edotIndex_1 = 0;
+                edotIndex_2 = 1;
+                edotIndex_3 = 1;
+                edotIndex_4 = 1;
+
+                dat = 2;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos3() {
+            if (dat !==3){
+
+                tdotIndex_1 = 0;
+                tdotIndex_2 = 0;
+                tdotIndex_3 = 0;
+                tdotIndex_4 = 1;
+
+                edotIndex_1 = 1;
+                edotIndex_2 = 0;
+                edotIndex_3 = 0;
+                edotIndex_4 = 0;
+
+                dat = 3;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos4() {
+            if (dat !==4){
+
+                tdotIndex_1 = 0;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 0;
+
+                edotIndex_1 = 2;
+                edotIndex_2 = 3;
+                edotIndex_3 = 4;
+                edotIndex_4 = 0;
+
+                dat = 4;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos5() {
+            if (dat !==5){
+
+                tdotIndex_1 = 1;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 1;
+
+                edotIndex_1 = 0;
+                edotIndex_2 = 1;
+                edotIndex_3 = 1;
+                edotIndex_4 = 1;
+
+                dat = 5;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos6() {
+            if (dat !==6){
+
+                tdotIndex_1 = 1;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 0;
+
+                edotIndex_1 = 1;
+                edotIndex_2 = 1;
+                edotIndex_3 = 1;
+                edotIndex_4 = 0;
+
+                dat = 6;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        function SkillPos7() {
+            if (dat !==7){
+
+                tdotIndex_1 = 0;
+                tdotIndex_2 = 1;
+                tdotIndex_3 = 1;
+                tdotIndex_4 = 1;
+
+                edotIndex_1 = 1;
+                edotIndex_2 = 1;
+                edotIndex_3 = 0;
+                edotIndex_4 = 0;
+
+                dat = 7;
+
+                updateDot();
+
+            }else{
+
+                tdotIndex_1 = 0; tdotIndex_2 = 0; tdotIndex_3 = 0; tdotIndex_4 = 0;
+                edotIndex_1 = 0; edotIndex_2 = 0; edotIndex_3 = 0; edotIndex_4 = 0;
+                dat = 0;
+                updateDot();
+            }
+        }
+
+        // Start skill select highlight function
+        // Could you shorten this tenfold by having an x variable stand in for the skillSelect_x?
+
+
+        function skillClear() {
+
+            document.getElementById("skill_zoom_1").style.backgroundImage = "";
+            document.getElementById("skill_zoom_2").style.backgroundImage = "";
+            document.getElementById("skill_zoom_3").style.backgroundImage = "";
+            document.getElementById("skill_zoom_4").style.backgroundImage = "";
+            document.getElementById("skill_zoom_5").style.backgroundImage = "";
+            document.getElementById("skill_zoom_6").style.backgroundImage = "";
+            document.getElementById("skill_zoom_7").style.backgroundImage = "";
+
+        }
+
+        function skillSelect_1() {
+            if (dat == 1){
+                skillClear()
+                document.getElementById("skill_zoom_1").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_1").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_2() {
+            if (dat == 2){
+                skillClear()
+                document.getElementById("skill_zoom_2").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_2").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_3() {
+            if (dat == 3){
+                skillClear()
+                document.getElementById("skill_zoom_3").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_3").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_4() {
+            if (dat == 4){
+                skillClear()
+                document.getElementById("skill_zoom_4").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_4").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_5() {
+            if (dat == 5){
+                skillClear()
+                document.getElementById("skill_zoom_5").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_5").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_6() {
+            if (dat == 6){
+                skillClear()
+                document.getElementById("skill_zoom_6").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_6").style.backgroundImage = "";
+            }
+        }
+
+        function skillSelect_7() {
+            if (dat == 7){
+                skillClear()
+                document.getElementById("skill_zoom_7").style.backgroundImage = "url(Images/Subpages/selected_ability.png)";
+            }else{
+                document.getElementById("skill_zoom_7").style.backgroundImage = "";
+            }
+        }
+
+    </script>
+</html>

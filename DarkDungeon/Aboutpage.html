@@ -1,0 +1,220 @@
+<!-- Current Problems to Resolve:
+    1. Making the screen size larger than a laptop size doesn't properly align the cards.
+    2. Making the screen size smaller to phone size means the bg picture is cropped since its on no repeat.
+    3. The odd number of heroes means the last one is positioned too much to the left rather than centered
+    4. Having to recreate all the battle sprite animations will be a pain :(
+    
+-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Darkest Dungeon Fanpage</title>
+        <link rel="icon" type="image/x-icon" href="Images/Mainpage/torch_browser.png">
+        <meta charset="utf-8">
+        <style>
+
+            @font-face {
+                font-family: Ubuntu;
+                src: url(Fonts/Ubuntu-Regular.woff);
+            }
+
+            @font-face{
+                font-family: Dwarf;
+                src: url(Fonts/DwarvenAxe\ BB\ W00\ Regular.woff);
+            }
+
+            body{
+                background-image: url("Images/Mainpage/dd_background.jpg");
+                background-attachment:fixed;
+                background-size:100% auto; 
+                background-repeat: no-repeat;
+                /* need @media for when the screen goes less width than the picture can fill */
+            }
+
+            div{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .logo_pic{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: fit-content;
+                height: fit-content;
+                min-height: 450px;
+                min-width: 300px;
+            }
+
+            #logo{
+                max-width: 100%;
+                height: 100%;
+            }
+
+            #ulist{
+                list-style-type: none;
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 1000px;
+                gap: 5em;
+            }
+
+            .card_main{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: stretch;
+            }
+
+
+            #char{
+                display: flex;
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+            }
+
+            .character_contain{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .char_border{
+                position: relative;
+                border-radius: 4px;
+                    /* bottom rounded borders do not work since image is being pushed up from actual bottom of div, which is invis */
+                padding-top: 15px;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-bottom: 40px;
+                min-width: 100px;
+                max-width: 250px;
+                display: flex;
+                overflow: hidden;
+                flex-direction: column;
+                background-image: url("Images/Mainpage/border_bg.png");
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 400px;
+                flex-grow: 1;
+                flex-shrink: 1;
+                flex-basis: 225px;
+            }
+
+            .char_name{
+                flex: 0 1;
+                line-height: 1;
+                text-align: center !important;
+                padding-bottom: 5px;
+                margin: 1px;
+            }
+
+                .char_name h1{
+                    color: black;
+                    font-size: 50px;
+                    font-family: Dwarf;
+                    margin: 0;
+                    -webkit-text-stroke: .1px orangered;
+                }
+
+            .item{
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                flex-basis: 210px;
+                /* flex basis for list makes it so that each card gets their full size no matter how small?
+                If you remove it you'll see what I mean.
+                Also changes the size of the gaps between each card. More important than I thought*/
+
+                min-width: 100px;
+                max-width: 400px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .infodiv{   /* Parent div for info button */
+                background-image: url("Images/Mainpage/infobtn.png");
+                background-repeat: no-repeat;
+                position: absolute;
+                    /* Allows button to overlap the char div. */
+                bottom: 10px;
+                    /* Specify how far above the bottom of the list div this button is */
+                align-self: center;
+                width: 80px;
+                height: 30px;
+                padding: 6px 4px 6px 4px;
+                display: flex;
+                    /* Parent conatiner is flex so that children can be flex */
+                flex-wrap: nowrap;
+                gap: 2px;
+                z-index: 1;
+                    /* Would determine the order of what appears above what. Since we have no other
+                        items that have z-index property (i think) this'll guarantee it shows up first.*/
+            }
+
+            .infodiv p2{
+                bottom: -10px !important;
+                align-self: center;
+            }
+
+            .infoframe{
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                    /* top and left center the "info" text in the button */
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                    /* justify aligns based on primary axis; in this case, flex is horizontal (default), so center horizontally */
+                align-items: center;
+                    /* align aligns based on secondary axis; in this case, flex is horizontal, so center vertically */
+                z-index: 1;
+                color: white;
+                font-family: Ubuntu;
+            }
+
+            #char_pic{
+                display: block;
+                flex: 1 1 100%;
+                width: 100%;
+                height: 400px;
+                background-repeat: no-repeat;
+                background-position: center top 20px;
+                background-size: auto 75%;
+            }
+
+            .menu{
+                background-color: rgb(139, 138, 135, .2);
+                overflow: hidden;
+                overflow: auto;
+                }
+
+                .menu a{
+                    font-family: Ubuntu;
+                    float: right;
+                    color: white;
+                    text-align: center;
+                    font-size: 18px;
+                    padding: 14px 14px;
+                }
+
+</style>
+<body>
+
+    <div class = "menu">
+
+        <a class="store" href="https://store.steampowered.com/app/262060/Darkest_Dungeon/">Buy on Steam</a>
+        <a class="about" href="Aboutpage.html">About</a>
+        <a class="home" href="Mainpage.html">Home</a>
+
+    </div>
+
+</body>
